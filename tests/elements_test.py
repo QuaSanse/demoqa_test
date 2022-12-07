@@ -21,5 +21,7 @@ class TestElements:
             url = 'https://demoqa.com/checkbox'
             check_box_page = CheckBoxPage(driver, url)
             check_box_page.open()
+            check_box_page.open_full_list()
+            check_box_page.click_random_checkbox()
 
 

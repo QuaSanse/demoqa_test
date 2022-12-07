@@ -1,3 +1,6 @@
+import time
+import random
+
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators
 from pages.base_page import Base_page
@@ -27,5 +30,22 @@ class TextBoxPage(Base_page):
         permanent_address = self.element_is_present(self.locator.CREATED_PERMANENT_ADDRESS).text.split(':')[1]
         return full_name, email, current_address, permanent_address
 
+
 class CheckBoxPage(Base_page):
     locator = CheckBoxPageLocators()
+
+    def open_full_list(self):
+        self.element_is_visible(self.locator.EXPAND_ALL_BUTTON).click()
+
+    def click_random_checkbox(self):
+        item_list = self.elements_are_visible(self.locator.ITEM_LIST)
+        count = 21
+        while count != 0:
+            item = item_list[random.randint(1, 15)]
+            if count > 0:
+                self.go_to_element(item)
+                item.click()
+                count -= 1
+            else:
+                break
+        time.sleep(3)
