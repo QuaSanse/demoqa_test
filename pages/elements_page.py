@@ -1,5 +1,5 @@
 from generator.generator import generated_person
-from locators.elements_page_locators import TextBoxPageLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators
 from pages.base_page import Base_page
 
 
@@ -26,3 +26,6 @@ class TextBoxPage(Base_page):
         current_address = self.element_is_present(self.locator.CREATED_CURRENT_ADDRESS).text.split(':')[1]
         permanent_address = self.element_is_present(self.locator.CREATED_PERMANENT_ADDRESS).text.split(':')[1]
         return full_name, email, current_address, permanent_address
+
+class CheckBoxPage(Base_page):
+    locator = CheckBoxPageLocators()

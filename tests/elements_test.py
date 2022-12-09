@@ -1,4 +1,4 @@
-from pages.elements_page import TextBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage
 
 
 class TestElements:
@@ -15,5 +15,11 @@ class TestElements:
             assert in_email == output_email, "Не совпадает email"
             assert in_cur_addr == output_cur_addr, "Не совпадает current address"
             assert in_per_addr == output_per_addr, "Не совпадает permanent address"
+
+    class TestCheckBox:
+        def test_check_box(self, driver):
+            url = 'https://demoqa.com/checkbox'
+            check_box_page = CheckBoxPage(driver, url)
+            check_box_page.open()
 
 
