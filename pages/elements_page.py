@@ -48,4 +48,3 @@ class CheckBoxPage(Base_page):
                 count -= 1
             else:
                 break
-        time.sleep(3)
