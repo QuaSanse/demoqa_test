@@ -7,9 +7,11 @@ from pages.base_page import Base_page
 
 
 class TextBoxPage(Base_page):
+    """ Класс для страницы Text Box """
     locator = TextBoxPageLocators()
 
     def fill_all_fields(self):
+        """ Функция заполнения полей формы Text Box """
         person_info = next(generated_person())
         full_name = person_info.full_name
         email = person_info.email
@@ -24,6 +26,7 @@ class TextBoxPage(Base_page):
         return full_name, email, current_address, permanent_address
 
     def check_filled_form(self):
+        """ Функция возвращает результат заполнения полей формы Text Box """
         full_name = self.element_is_present(self.locator.CREATED_FULL_NAME).text.split(':')[1]
         email = self.element_is_present(self.locator.CREATED_EMAIL).text.split(':')[1]
         current_address = self.element_is_present(self.locator.CREATED_CURRENT_ADDRESS).text.split(':')[1]
@@ -32,12 +35,15 @@ class TextBoxPage(Base_page):
 
 
 class CheckBoxPage(Base_page):
+    """ Класс для страницы Check Box """
     locator = CheckBoxPageLocators()
 
     def open_full_list(self):
+        """ Функция раскрытия всех CheckBox для формы Check Box """
         self.element_is_visible(self.locator.EXPAND_ALL_BUTTON).click()
 
     def click_random_checkbox(self):
+        """ Функция случайных кликов по CheckBox для формы Check Box """
         item_list = self.elements_are_visible(self.locator.ITEM_LIST)
         count = 21
         while count != 0:
@@ -48,3 +54,5 @@ class CheckBoxPage(Base_page):
                 count -= 1
             else:
                 break
+
+

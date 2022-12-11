@@ -3,6 +3,7 @@ from pages.elements_page import TextBoxPage, CheckBoxPage
 
 class TestElements:
     class TestTextBox:
+        """ Проверки для страницы Text Box """
 
         def test_text_box(self, driver):
             url = 'https://demoqa.com/text-box'
@@ -17,6 +18,7 @@ class TestElements:
             assert in_per_addr == output_per_addr, "Не совпадает permanent address"
 
     class TestCheckBox:
+        """ Проверки для страницы Check Box """
         def test_check_box(self, driver):
             url = 'https://demoqa.com/checkbox'
             check_box_page = CheckBoxPage(driver, url)
