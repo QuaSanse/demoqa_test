@@ -29,5 +29,7 @@ class CheckBoxPageLocators:
 
 
 class RadioButtonPageLocators:
-    CUSTOM_RADIO_ALL = (By.CSS_SELECTOR, ".custom-radio .custom-control-label")
-    OUTPUT_TEXT_SUCCESS = (By.CSS_SELECTOR, "span[class='text-success']")
+    YES_RADIOBUTTON = (By.CSS_SELECTOR, ".custom-radio .custom-control-label[for='yesRadio']")
+    IMPRESSIVE_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="impressiveRadio"]')
+    NO_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="noRadio"]')
+    OUTPUT_RESULT = (By.CSS_SELECTOR, 'p span[class="text-success"]')

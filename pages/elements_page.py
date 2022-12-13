@@ -78,10 +78,15 @@ class RadioButtonPage(Base_page):
     """ Класс для страницы Radio Button """
     locators = RadioButtonPageLocators()
 
-    def click_radio_button(self):
-        custom_radio_list = self.elements_are_visible(self.locators.CUSTOM_RADIO_ALL)
+    def click_on_the_radio_button(self, choice):
+        """ Функция кликов на каждый Radio Button """
+        choices = {
+            'yes': self.locators.YES_RADIOBUTTON,
+            'impressive': self.locators.IMPRESSIVE_RADIOBUTTON,
+            'no': self.locators.NO_RADIOBUTTON
+        }
+        self.element_is_visible(choices[choice]).click()
 
-        for radio in custom_radio_list:
-            radio.click()
-            text_success = self.element_is_visible(self.locators.OUTPUT_TEXT_SUCCESS).text
-            assert radio.text == text_success, f'Radio button: "{radio.text}" not equal text success: "{text_success}"'
+    def get_output_result(self):
+        """ Функция возвращает текст результата на нажатый Radio Button """
+        return self.element_is_present(self.locators.OUTPUT_RESULT).text
