@@ -2,7 +2,7 @@ import time
 import random
 
 from generator.generator import generated_person
-from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators
 from pages.base_page import Base_page
 
 
@@ -72,3 +72,16 @@ class CheckBoxPage(Base_page):
         for item in output_list:
             data.append(item.text)
         return str(data).replace(' ', '').lower()
+
+
+class RadioButtonPage(Base_page):
+    """ Класс для страницы Radio Button """
+    locators = RadioButtonPageLocators()
+
+    def click_radio_button(self):
+        custom_radio_list = self.elements_are_visible(self.locators.CUSTOM_RADIO_ALL)
+
+        for radio in custom_radio_list:
+            radio.click()
+            text_success = self.element_is_visible(self.locators.OUTPUT_TEXT_SUCCESS).text
+            assert radio.text == text_success, f'Radio button: "{radio.text}" not equal text success: "{text_success}"'

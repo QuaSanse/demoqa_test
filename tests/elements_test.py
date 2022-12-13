@@ -1,4 +1,4 @@
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
 
 
 class TestElements:
@@ -31,3 +31,10 @@ class TestElements:
             assert input_checkbox == output_result, 'Checkboxes have not selected'
 
 
+    class TestRadioButton:
+
+        def test_radio_button(self, driver):
+            url = 'https://demoqa.com/radio-button'
+            radio_box_page = RadioButtonPage(driver, url)
+            radio_box_page.open()
+            radio_box_page.click_radio_button()
