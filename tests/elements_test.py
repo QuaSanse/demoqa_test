@@ -1,4 +1,4 @@
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
 
 
 class TestElements:
@@ -19,6 +19,7 @@ class TestElements:
 
     class TestCheckBox:
         """ Проверки для страницы Check Box """
+
         def test_check_box(self, driver):
             url = 'https://demoqa.com/checkbox'
             check_box_page = CheckBoxPage(driver, url)
@@ -30,4 +31,21 @@ class TestElements:
 
             assert input_checkbox == output_result, 'Checkboxes have not selected'
 
+    class TestRadioButton:
+        """ Проверки для страницы Radio Box """
 
+
+        def test_radio_button(self, driver):
+            url = 'https://demoqa.com/radio-button'
+            radio_box_page = RadioButtonPage(driver, url)
+            radio_box_page.open()
+            radio_box_page.click_on_the_radio_button('yes')
+            output_yes = radio_box_page.get_output_result()
+            radio_box_page.click_on_the_radio_button('impressive')
+            output_impressive = radio_box_page.get_output_result()
+            radio_box_page.click_on_the_radio_button('no')
+            output_no = radio_box_page.get_output_result()
+
+            assert output_yes == 'Yes', "'Yes' have not been selected"
+            assert output_impressive == 'Impressive', "'Impressive' have not been selected"
+            assert output_no == "No", "'No' have not been selected"

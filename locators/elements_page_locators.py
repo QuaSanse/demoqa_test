@@ -17,6 +17,7 @@ class TextBoxPageLocators:
     CREATED_CURRENT_ADDRESS = (By.CSS_SELECTOR, '#output #currentAddress')
     CREATED_PERMANENT_ADDRESS = (By.CSS_SELECTOR, '#output #permanentAddress')
 
+
 class CheckBoxPageLocators:
     """ Локаторы для формы Check Box """
     EXPAND_ALL_BUTTON = (By.CSS_SELECTOR, "button[title = 'Expand all']")
@@ -25,3 +26,10 @@ class CheckBoxPageLocators:
     TITLE_ITEM = ".//ancestor::span[@class='rct-text']"
     # TITLE_ITEM = ".//ancestor::span[@class='rct-text']/label/span[3]"
     OUTPUT_RESULT = (By.CSS_SELECTOR, "span[class='text-success']")
+
+
+class RadioButtonPageLocators:
+    YES_RADIOBUTTON = (By.CSS_SELECTOR, ".custom-radio .custom-control-label[for='yesRadio']")
+    IMPRESSIVE_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="impressiveRadio"]')
+    NO_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="noRadio"]')
+    OUTPUT_RESULT = (By.CSS_SELECTOR, 'p span[class="text-success"]')
