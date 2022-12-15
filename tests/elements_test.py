@@ -58,5 +58,7 @@ class TestElements:
             url = 'https://demoqa.com/webtables'
             web_tables_page = WebTablesPage(driver, url)
             web_tables_page.open()
-            web_tables_page.add_new_person(1)
-            time.sleep(5)
+            new_person = web_tables_page.add_new_person(2)
+            table_result = web_tables_page.check_new_added_person()
+            time.sleep(3)
+            assert new_person in table_result, "the person was not found in the table"
