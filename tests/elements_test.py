@@ -1,3 +1,4 @@
+import random
 import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage
@@ -62,3 +63,11 @@ class TestElements:
             table_result = web_tables_page.check_new_added_person()
             time.sleep(3)
             assert new_person in table_result, "the person was not found in the table"
+
+        def test_web_table_search_person(self, driver):
+            web_table_page = WebTablesPage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            key_word = web_table_page.add_new_person()[random.randint(0, 5)]
+            web_table_page.search_some_person(key_word)
+            table_result = web_table_page.check_search_person()
+            assert key_word in table_result, "the person was not found in the table"
