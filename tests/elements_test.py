@@ -1,7 +1,8 @@
 import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablesPage, ButtonsPage, LinksPage, \
+    UploadAndDownloadPage
 
 
 class TestElements:
@@ -107,3 +108,32 @@ class TestElements:
             assert result['double_click'] == "You have done a double click", "The double click button was not pressed"
             assert result['right_click'] == "You have done a right click", "The right click button was not pressed"
             assert result['click'] == "You have done a dynamic click", "The dynamic click button was not pressed"
+
+    class TestLinksPage:
+        """ Проверки для страницы Links """
+        def test_check_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            href_link, current_url = links_page.check_new_tab_simple_link()
+            assert href_link == current_url, "the link is broken or url is incorrect"
+
+        def test_broken_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_broken_link('https://demoqa.com/bad-request')
+            assert response_code == 400, "the link works or the status code in son 400"
+
+    class TestUploadAndDownload:
+        """ Проверки для страницы Upload And Download """
+
+        def test_upload_file(self, driver):
+            upload_download_page = UploadAndDownloadPage(driver, 'https://demoqa.com/upload-download')
+            upload_download_page.open()
+            file_name, result = upload_download_page.upload_file()
+            assert file_name == result, "the file has not been uploaded"
+
+        def test_download_file(self, driver):
+            upload_download_page = UploadAndDownloadPage(driver, 'https://demoqa.com/upload-download')
+            upload_download_page.open()
+            check = upload_download_page.download_file()
+            assert check is True, "the file has not been downloaded"
