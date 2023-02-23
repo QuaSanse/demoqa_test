@@ -1,16 +1,18 @@
+import base64
+import os
 import time
 import random
 
 import requests
 from selenium.webdriver.common.by import By
 
-from generator.generator import generated_person
+from generator.generator import generated_person, generated_file
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebTablesPageLocators, ButtonsPageLocators, LinksPageLocators
-from pages.base_page import Base_page
+    WebTablesPageLocators, ButtonsPageLocators, LinksPageLocators, UploadAndDownloadPageLocators
+from pages.basepage import BasePage
 
 
-class TextBoxPage(Base_page):
+class TextBoxPage(BasePage):
     """ Класс для страницы Text Box """
     locators = TextBoxPageLocators()
 
@@ -38,7 +40,7 @@ class TextBoxPage(Base_page):
         return full_name, email, current_address, permanent_address
 
 
-class CheckBoxPage(Base_page):
+class CheckBoxPage(BasePage):
     """ Класс для страницы Check Box """
     locators = CheckBoxPageLocators()
 
@@ -78,7 +80,7 @@ class CheckBoxPage(Base_page):
         return str(data).replace(' ', '').lower()
 
 
-class RadioButtonPage(Base_page):
+class RadioButtonPage(BasePage):
     """ Класс для страницы Radio Button """
     locators = RadioButtonPageLocators()
 
@@ -96,7 +98,7 @@ class RadioButtonPage(Base_page):
         return self.element_is_present(self.locators.OUTPUT_RESULT).text
 
 
-class WebTablesPage(Base_page):
+class WebTablesPage(BasePage):
     locators = WebTablesPageLocators()
 
     def add_new_person(self, count=1):
@@ -165,7 +167,7 @@ class WebTablesPage(Base_page):
         return len(list_rows)
 
 
-class ButtonsPage(Base_page):
+class ButtonsPage(BasePage):
     locators = ButtonsPageLocators()
 
     result_dict = {}
@@ -195,7 +197,7 @@ class ButtonsPage(Base_page):
         return self.element_is_present(element).text
 
 
-class LinksPage(Base_page):
+class LinksPage(BasePage):
     locators = LinksPageLocators()
 
     def check_new_tab_simple_link(self):
@@ -216,3 +218,27 @@ class LinksPage(Base_page):
             self.element_is_present(self.locators.BAD_REQUEST).click()
         else:
             return request.status_code
+
+
+class UploadAndDownloadPage(BasePage):
+    locators = UploadAndDownloadPageLocators()
+
+    def upload_file(self):
+        file_name, path = generated_file()
+        self.element_is_present(self.locators.UPLOAD_FILE).send_keys(path)
+        os.remove(path)
+        text = self.element_is_present(self.locators.UPLOADED_RESULT).text
+        return file_name, text.split('\\')[-1]
+
+    def download_file(self):
+        link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
+        link_b = base64.b64decode(link)
+        root_dir = os.path.dirname(os.path.dirname(__file__))
+        path_name_file = rf'{root_dir}\data\filetest_{random.randint(0, 999)}.jpg'
+        with open(path_name_file, 'wb+') as f:
+            offset = link_b.find(b'\xff\xd8')
+            f.write(link_b[offset:])
+            check_file = os.path.exists(path_name_file)
+            f.close()
+        os.remove(path_name_file)
+        return check_file
