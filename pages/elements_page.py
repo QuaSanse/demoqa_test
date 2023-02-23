@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebTablesPageLocators
+    WebTablesPageLocators, ButtonsPageLocators
 from pages.base_page import Base_page
 
 
@@ -142,14 +142,11 @@ class WebTablesPage(Base_page):
         self.element_is_visible(self.locators.SUBMIT).click()
         return str(age)
 
-
     def delete_person(self):
         self.element_is_visible(self.locators.DELETE_BUTTON).click()
 
-
     def check_deleted(self):
         return self.element_is_present(self.locators.NO_ROWS_FOUND).text
-
 
     def select_up_to_some_rows(self):
         count = [5, 10, 20, 25, 50, 100]
@@ -162,7 +159,36 @@ class WebTablesPage(Base_page):
             data.append(self.check_count_rows())
         return data
 
-
     def check_count_rows(self):
         list_rows = self.elements_are_present(self.locators.FULL_PERSON_LIST)
         return len(list_rows)
+
+
+class ButtonsPage(Base_page):
+    locators = ButtonsPageLocators()
+
+    result_dict = {}
+
+    def click_on_different_button(self) -> dict:
+        self.click_on_the_double_button()
+        self.click_on_the_right_button()
+        self.click_on_the_button()
+        return self.result_dict
+
+    def click_on_the_double_button(self):
+        self.action_double_click(self.element_is_visible(self.locators.DOUBLE_BUTTON))
+        result = self.check_clicked_on_the_button(self.locators.SUCCESS_DOUBLE)
+        self.result_dict.update({"double_click": result})
+
+    def click_on_the_right_button(self):
+        self.action_right_click(self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON))
+        result = self.check_clicked_on_the_button(self.locators.SUCCESS_RIGHT)
+        self.result_dict.update({"right_click": result})
+
+    def click_on_the_button(self):
+        self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
+        result = self.check_clicked_on_the_button(self.locators.SUCCESS_CLICK_ME)
+        self.result_dict.update({"click": result})
+
+    def check_clicked_on_the_button(self, element):
+        return self.element_is_present(element).text
