@@ -100,13 +100,13 @@ class TestElements:
     class TestButtonsPage:
         """ Проверки для страницы Buttons """
 
-    def test_different_click_on_the_buttons(self, driver):
-        button_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
-        button_page.open()
-        result = button_page.click_on_different_button()
-        assert result['double_click'] == "You have done a double click", "The double click button was not pressed"
-        assert result['right_click'] == "You have done a right click", "The right click button was not pressed"
-        assert result['click'] == "You have done a dynamic click", "The dynamic click button was not pressed"
+        def test_different_click_on_the_buttons(self, driver):
+            button_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
+            button_page.open()
+            result = button_page.click_on_different_button()
+            assert result['double_click'] == "You have done a double click", "The double click button was not pressed"
+            assert result['right_click'] == "You have done a right click", "The right click button was not pressed"
+            assert result['click'] == "You have done a dynamic click", "The dynamic click button was not pressed"
 
     class TestLinksPage:
         def test_check_link(self, driver):
