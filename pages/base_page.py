@@ -1,3 +1,4 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -37,3 +38,15 @@ class Base_page:
     def go_to_element(self, element):
         """ Функция со скриптом для скролла к элементу """
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+    def action_double_click(self, element):
+        """ Функция делает двойной клик на элемент """
+        action = ActionChains(self.driver)
+        action.double_click(element)
+        action.perform()
+
+    def action_right_click(self, element):
+        """ Функция делает клик на элемент правой кнопкой """
+        action = ActionChains(self.driver)
+        action.context_click(element)
+        action.perform()
