@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
-    def __init__(self, driver, url) -> object:
+    def __init__(self, driver, url) -> None:
         self.driver = driver
         self.url = url
 
@@ -50,3 +50,7 @@ class BasePage:
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
+
+    def remove_footer(self):
+        self.driver.execute_script('document.querySelector("#app > footer").remove();')
+        self.driver.execute_script('document.querySelector("#fixedban").remove();')
