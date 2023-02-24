@@ -11,7 +11,7 @@ from generator.generator import generated_person, generated_file
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     WebTablesPageLocators, ButtonsPageLocators, LinksPageLocators, UploadAndDownloadPageLocators, \
     DynamicPropertiesPageLocators
-from pages.basepage import BasePage
+from pages.base_page import BasePage
 
 
 class TextBoxPage(BasePage):
