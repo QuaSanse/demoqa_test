@@ -111,6 +111,7 @@ class TestElements:
 
     class TestLinksPage:
         """ Проверки для страницы Links """
+
         def test_check_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
