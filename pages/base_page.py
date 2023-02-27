@@ -76,5 +76,7 @@ class BasePage:
         """ Функция возвращения на дефолтное окно """
         self.driver.switch_to.default_content()
 
-
-
+    def get_text_from_an_element(self, element):
+        """ Функция получает текст элемента """
+        text = self.element_is_present(element).text
+        return text
