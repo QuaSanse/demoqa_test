@@ -52,5 +52,29 @@ class BasePage:
         action.perform()
 
     def remove_footer(self):
+        """ Функция удаления элементов скриптом JS """
         self.driver.execute_script('document.querySelector("#app > footer").remove();')
         self.driver.execute_script('document.querySelector("#fixedban").remove();')
+
+    def switch_to_new_tab_or_windows(self, element):
+        """ Функция перевода фокуса на новую вкладку или окно """
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        text_title = self.element_is_present(element).text
+        return text_title
+
+    def switch_to_alert(self):
+        """ Функция перевода фокуса на окно alert """
+        alert_window = self.driver.switch_to.alert
+        return alert_window
+
+    def switch_to_frame(self, element):
+        """ Функция перевода фокуса на frame """
+        frame = self.driver.switch_to.frame(element)
+        return frame
+
+    def switch_to_default_content(self):
+        """ Функция возвращения на дефолтное окно """
+        self.driver.switch_to.default_content()
+
+
+
