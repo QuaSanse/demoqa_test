@@ -100,13 +100,22 @@ class NestedFramesPage(BasePage):
 class ModalDialogsPage(BasePage):
     locators = ModalDialogsPageLocators()
 
-    @allure.step('check modal dialogs')
-    def check_modal_dialogs(self):
+    @allure.step('check modal small dialogs')
+    def check_modal_small_dialogs(self):
         self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
+        height_modal_small_window = self.get_properties_element(self.locators.SMALL_MODAL_WINDOW, 'clientHeight')
+        width_modal_small_window = self.get_properties_element(self.locators.SMALL_MODAL_WINDOW, 'clientWidth')
         title_small = self.element_is_visible(self.locators.TITLE_SMALL_MODAL).text
         body_small_text = self.element_is_visible(self.locators.BODY_SMALL_MODAL).text
         self.element_is_visible(self.locators.SMALL_MODAL_CLOSE_BUTTON).click()
+        return [title_small, len(body_small_text), height_modal_small_window, width_modal_small_window, ]
+
+    @allure.step('check modal large dialogs')
+    def check_modal_large_dialogs(self):
         self.element_is_visible(self.locators.LARGE_MODAL_BUTTON).click()
+        height_modal_large_window = self.get_properties_element(self.locators.SMALL_MODAL_WINDOW, 'clientHeight')
+        width_modal_large_window = self.get_properties_element(self.locators.SMALL_MODAL_WINDOW, 'clientWidth')
         title_large = self.element_is_visible(self.locators.TITLE_LARGE_MODAL).text
         body_large_text = self.element_is_visible(self.locators.BODY_LARGE_MODAL).text
-        return [title_small, len(body_small_text)], [title_large, len(body_large_text)]
+        self.element_is_visible(self.locators.LARGE_MODAL_CLOSE_BUTTON).click()
+        return [title_large, len(body_large_text), height_modal_large_window, width_modal_large_window, ]

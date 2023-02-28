@@ -29,6 +29,7 @@ class TestAlertsFrameWindow:
     @allure.feature('Alerts Page')
     class TestAlertsPage:
         link_alerts = "https://demoqa.com/alerts"
+
         @allure.title('Checking the opening of an alert')
         def test_see_alert(self, driver):
             alert_page = AlertsPage(driver, self.link_alerts)
@@ -60,6 +61,7 @@ class TestAlertsFrameWindow:
     @allure.feature('Frame Page')
     class TestFramesPage:
         link_frames = "https://demoqa.com/frames"
+
         @allure.title('Check the page with frames')
         def test_frames(self, driver):
             frame_page = FramesPage(driver, self.link_frames)
@@ -72,6 +74,7 @@ class TestAlertsFrameWindow:
     @allure.feature('Nested Page')
     class TestNestedFramesPage:
         link_nestedframes = "https://demoqa.com/nestedframes"
+
         @allure.title('Check the page with nested frames')
         def test_nested_frames(self, driver):
             nested_frame_page = NestedFramesPage(driver, self.link_nestedframes)
@@ -83,11 +86,17 @@ class TestAlertsFrameWindow:
     @allure.feature('Modal Dialog Page')
     class TestModalDialogsPage:
         link_modal_dialogs = "https://demoqa.com/modal-dialogs"
-        @allure.title('Check the page with modal dialogs')
-        def test_modal_dialogs(self, driver):
+
+        @allure.title('Check the page with small modal dialogs')
+        def test_modal_small_dialogs(self, driver):
             modal_dialogs_page = ModalDialogsPage(driver, self.link_modal_dialogs)
             modal_dialogs_page.open()
-            small, large = modal_dialogs_page.check_modal_dialogs()
-            assert small[1] < large[1], 'text from large dialog is less than text from small dialog'
-            assert small[0] == 'Small Modal', 'The header is not "Small modal"'
-            assert large[0] == 'Large Modal', 'The header is not "Large modal"'
+            result_small = modal_dialogs_page.check_modal_small_dialogs()
+            assert result_small == ['Small Modal', 47, 219, 298], 'The small dialogs does not exist'
+
+        @allure.title('Check the page with large modal dialogs')
+        def test_modal_large_dialogs(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver, self.link_modal_dialogs)
+            modal_dialogs_page.open()
+            result_large = modal_dialogs_page.check_modal_large_dialogs()
+            assert result_large == ['Large Modal', 574, 331, 798], 'The large dialogs does not exist'

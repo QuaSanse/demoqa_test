@@ -80,3 +80,7 @@ class BasePage:
         """ Функция получает текст элемента """
         text = self.element_is_present(element).text
         return text
+
+    def get_properties_element(self, element, name_prop: str):
+        """ Функция получает свойство элемента """
+        return self.element_is_present(element).get_property(name_prop)
